@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "py-cloudinfra"
+name = "cloudinfra"
 version = "0.1.0"
 description = ""
 authors = ["Jonas Rosenboom <jrosenboom@checkpoint.com>"]
