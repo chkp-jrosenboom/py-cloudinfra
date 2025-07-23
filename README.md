@@ -59,3 +59,16 @@ session_with_token = cloudinfra.Session(token=token)
 If you don't pass in a profile nor credentials, it will
 - attempt CLOUDINFRA_KEY and CLOUDINFRA_SECRET from environment
 - attempt to load the `default` profile from `~/.cloudinfra/credentials
+
+## Troubleshooting
+
+_py-cloudinfra_ provides detailed logging to help diagnose issues.
+
+The default log level is `error`.
+
+Logs are written to STDERR by default.
+You can set `CLOUDINFRA_LOGFILE` to specify a logfile instead.
+
+Set the `LOGLEVEL` environment variable to `debug` to enable verbose output, which includes HTTP requests, responses, and internal SDK operations. This can assist in identifying authentication problems, misconfigured profiles, or API errors.
+
+`LOGLEVEL=debug python3 script.py`
