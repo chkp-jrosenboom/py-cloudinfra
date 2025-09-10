@@ -194,13 +194,24 @@ class Session:
             return None
 
     def add_user(self, email, name):
-        body = {
+        payload = {
             "email": email,
             "name": name,
             "roles": {"global": ["871e947b-8db5-4b87-835f-092cb118bf3b"]},
             "role": "admin",
         }
-        response = self.post("user", body)
+        response = self.post("user", payload)
+        return response
+
+    def add_admin_token(self):
+        payload = {
+            "appId": "849c6c68-acab-4ce3-a59d-f1e53d24d88b", 
+            "roles": ["12345678-1234-1234-1112-123456789125"],
+            "role": "Admin",
+            "expiration": "",
+            "description": "",
+        }
+        response = self.post("authentication/token", payload)
         return response
 
     def get_users(self):
