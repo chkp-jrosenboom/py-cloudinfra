@@ -6,10 +6,11 @@ authors = ["Jonas Rosenboom <jrosenboom@checkpoint.com>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "^3.8"
+python = "^3.9"
 requests = "^2.32.3"
 jmespath = "^1.0.1"
 click = "^8.1.7"
+pyjwt = "^2.10.1"
 
 
 [build-system]

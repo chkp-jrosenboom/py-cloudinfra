@@ -6,6 +6,7 @@ from logging.handlers import RotatingFileHandler
 from pathlib import Path
 
 import jmespath
+import jwt
 import requests
 from requests.adapters import HTTPAdapter, Retry
 
@@ -108,6 +109,7 @@ class Session:
         **kwargs,
     ):
         session = requests.Session()
+        self._last_response = None
         
         allowed_methods = ["HEAD", "GET", "PUT", "DELETE", "OPTIONS", "TRACE"]
         # WAF uses POST for all requests, so we need to allow it.
@@ -126,10 +128,15 @@ class Session:
             headers=headers,
             **kwargs,
         )
+
+        self._last_response = response
+
         # logger.debug("Headers: %s", response.request.headers)
         logger.debug(
             "Logger token: %s", response.headers.get("logger-token", "Error - no logger token")
         )
+
+        self._last_logger_token = response.headers.get("logger-token", None)
 
         if response.status_code == 401:
             self.get_token()
@@ -166,6 +173,25 @@ class Session:
     put = partialmethod(call, method="PUT")
     delete = partialmethod(call, method="DELETE")
     patch = partialmethod(call, method="PATCH")
+
+    def logger_token(self):
+        if hasattr(self, "logger_token"):
+            return self.logger_token
+        return None
+    
+    def response(self):
+        if hasattr(self, "_last_response"):
+            return self._last_response
+        return None
+
+    def jwt_info(self):
+        if not self.token:
+            return None
+        try:
+            return jwt.decode(self.token, options={"verify_signature": False})
+        except Exception as e:
+            logger.error("Error decoding JWT: %s", e)
+            return None
 
     def add_user(self, email, name):
         body = {
