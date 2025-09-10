@@ -222,6 +222,16 @@ class Session:
         response = self.get("audit")
         return response
 
+    @staticmethod
+    def from_response(response, app="api/v1"):
+        key = response['clientId']
+        secret = response['accessKey']
+        base_url = response['geo']['url'] if 'geo' in response else None
+        if base_url:
+            return Session(key=key, secret=secret, base_url=base_url, app=app)
+        else:
+            return Session(key=key, secret=secret, app=app)
+
 
 def main():
     session = Session()
