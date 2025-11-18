@@ -175,8 +175,8 @@ class Session:
     patch = partialmethod(call, method="PATCH")
 
     def logger_token(self):
-        if hasattr(self, "logger_token"):
-            return self.logger_token
+        if hasattr(self, "_last_logger_token"):
+            return self._last_logger_token
         return None
     
     def response(self):
