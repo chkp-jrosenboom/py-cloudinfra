@@ -76,7 +76,7 @@ class Session:
                 raise TypeError(f"Invalid config: {self.config}")
             self.get_token()
 
-        if app:
+        if app is not None:
             self.config.APP = app
 
     def get_token(self):
