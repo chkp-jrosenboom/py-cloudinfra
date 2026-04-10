@@ -2,7 +2,7 @@
 
 Unofficial Python SDK for the Check Point Infinity Portal, which allows 
 Python developers to write software that interacts with applications like 
-Smart-1 Cloud or CloudGuard WAF.
+Smart-1 Cloud or Check Point WAF.
 
 This repository is not endorsed, supported or maintained by Check Point.
 
